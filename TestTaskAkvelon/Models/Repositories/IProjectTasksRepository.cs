@@ -2,11 +2,15 @@
 {
     public interface IProjectTasksRepository
     {
-        List<ProjectTask> GetAll();
-        ProjectTask Get(int id);
+        List<ProjectTask> GetAllTasks();
+        ProjectTask GetTaskById(int id);
 
-        void Delete(int id);
+        void DeleteTaskById(int id);
 
-        void Add(ProjectTask projectTask);  
+        void AddTask(ProjectTask projectTask);
+        public void UpdateTask(ProjectTask projectTask);
+
+        List<ProjectTask> GetAllTasksByProjectId(int projectId);
+
     }
 }

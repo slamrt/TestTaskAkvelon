@@ -2,7 +2,7 @@
 {
     public class ProjectTasksRepository : IProjectTasksRepository
     {
-        public void Add(ProjectTask projectTask)
+        public void AddTask(ProjectTask projectTask)
         {
             using (var dbContext = new DataBaseContext())
             {
@@ -11,16 +11,16 @@
             }
         }
 
-        public void Delete(int id)
+        public void DeleteTaskById(int id)
         {
             using (var dbContext = new DataBaseContext())
             {
-                dbContext.ProjectTasks.Remove(Get(id));
+                dbContext.ProjectTasks.Remove(GetTaskById(id));
                 dbContext.SaveChanges();
             }
         }
 
-        public ProjectTask Get(int id)
+        public ProjectTask GetTaskById(int id)
         {
             using(var dbContext = new DataBaseContext())
             {
@@ -28,11 +28,30 @@
             }
         }
 
-        public List<ProjectTask> GetAll()
+        public List<ProjectTask> GetAllTasks()
         {
             using (var dbContext = new DataBaseContext())
             {
                 return dbContext.ProjectTasks.ToList();
+            }
+        }
+
+
+        public void UpdateTask(ProjectTask projectTask)
+        {
+            using (var dbContext = new DataBaseContext())
+            {
+                dbContext.ProjectTasks.Update(projectTask);
+                dbContext.SaveChanges();
+            }
+        }
+
+        public List<ProjectTask> GetAllTasksByProjectId(int projectId)
+        {
+            using (var dbContext = new DataBaseContext())
+            {
+                List<ProjectTask> result = dbContext.ProjectTasks.Where(t => t.Id == projectId).ToList();
+                return result;
             }
         }
     }
