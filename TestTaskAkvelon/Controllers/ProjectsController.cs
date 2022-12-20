@@ -63,7 +63,7 @@ namespace TestTaskAkvelon.Controllers
         public IActionResult PostBody([FromBody] Project project) => AddProject(project);
 
         [HttpPut]
-        public IActionResult UpdateProject(Project project)
+        public IActionResult UpdateProject(Project project)//update a project
         {
 
             if (project == null)
