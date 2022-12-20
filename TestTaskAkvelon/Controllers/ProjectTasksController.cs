@@ -16,7 +16,7 @@ namespace TestTaskAkvelon.Controllers
         }
 
         [HttpGet]
-        public List<ProjectTask> Get()//getting all taskss
+        public List<ProjectTask> GetAllTasks()//getting all taskss
         {
             List<ProjectTask>? tasks = _projectTasksRepository.GetAllTasks();
             List<ProjectTask> result = tasks
@@ -28,9 +28,16 @@ namespace TestTaskAkvelon.Controllers
             }).ToList();
             return result;
         }
+        [HttpGet("GetAllTasksByProjectId")]
+
+        public List<ProjectTask> GetAllTasksByProjectId(int projectId)
+        {
+            List<ProjectTask>? tasks = _projectTasksRepository.GetAllTasksByProjectId(projectId).ToList();
+            return tasks;
+        }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)//getting a task by its id
+        public IActionResult GetTaskById(int id)//getting a task by its id
         {
             var task = _projectTasksRepository.GetTaskById(id);
             if(task == null)
@@ -41,14 +48,14 @@ namespace TestTaskAkvelon.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)//removing a task
+        public IActionResult DeleteTask(int id)//removing a task
         {
             _projectTasksRepository.DeleteTaskById(id);
             return Ok();
         }
 
         [HttpPost]
-        public IActionResult Post(ProjectTask projectTask)//adding a task
+        public IActionResult AddTask(ProjectTask projectTask)//adding a task
         {
             if (!ModelState.IsValid)
             {
@@ -56,11 +63,11 @@ namespace TestTaskAkvelon.Controllers
             }
            
             _projectTasksRepository.AddTask(projectTask);
-            return CreatedAtAction(nameof(Get), new { id = projectTask.Id }, projectTask);
+            return CreatedAtAction(nameof(GetTaskById), new { id = projectTask.Id }, projectTask);
         }
 
         [HttpPost("AddProjectTask")]
-        public IActionResult PostBody([FromBody] ProjectTask projectTask) => Post(projectTask);
+        public IActionResult PostBody([FromBody] ProjectTask projectTask) => AddTask(projectTask);
 
 
         [HttpPut]

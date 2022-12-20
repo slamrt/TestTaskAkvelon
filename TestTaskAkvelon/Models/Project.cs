@@ -11,5 +11,7 @@ namespace TestTaskAkvelon.Models
 
         [Required]
         public string? Description { get; set; }
+
+        List<ProjectTask> Tasks { get; set; }   
     }
 }

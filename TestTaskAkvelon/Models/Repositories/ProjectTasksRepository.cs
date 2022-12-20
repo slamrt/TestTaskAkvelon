@@ -50,7 +50,7 @@
         {
             using (var dbContext = new DataBaseContext())
             {
-                List<ProjectTask> result = dbContext.ProjectTasks.Where(t => t.Id == projectId).ToList();
+                List<ProjectTask> result = dbContext.ProjectTasks.Where(t => t.ProjectId == projectId).ToList();
                 return result;
             }
         }

@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IProjectTasksRepository, ProjectTasksRepository>();
+builder.Services.AddSingleton<IProjectsRepository, ProjectsRepository>();
 
 var app = builder.Build();
 
