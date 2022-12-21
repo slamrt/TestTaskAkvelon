@@ -9,8 +9,8 @@ namespace TestTaskAkvelon.Controllers
     {
         private IProjectTasksRepository _projectTasksRepository;//creating an intermediate
                                                                 //repository to help perform CRUD operations
-        private int NextTaskId => _projectTasksRepository.GetAll().Count == 0 ?
-            1 : _projectTasksRepository.GetAll().Max(t => t.Id) + 1; // find the id
+        private int NextTaskId => _projectTasksRepository.GetAllTasks().Count == 0 ?
+            1 : _projectTasksRepository.GetAllTasks().Max(t => t.Id) + 1; // find the id
                                                                      // of the next task 
 
         public ProjectTasksController(IProjectTasksRepository projectTasksRepository)
@@ -72,8 +72,8 @@ namespace TestTaskAkvelon.Controllers
                 return BadRequest(ModelState);
             }
             projectTask.Id = this.NextTaskId;
-            _projectTasksRepository.Add(projectTask);
-            return CreatedAtAction(nameof(Get), new { id = projectTask.Id }, projectTask);
+            _projectTasksRepository.AddTask(projectTask);
+            return CreatedAtAction(nameof(GetTaskById), new { id = projectTask.Id }, projectTask);
         }
 
         [HttpPost("AddProjectTask")]
